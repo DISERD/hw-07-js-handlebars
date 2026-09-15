@@ -718,36 +718,32 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _dataJs = require("./data.js");
 var _templateHbs = require("./template.hbs");
 var _templateHbsDefault = parcelHelpers.interopDefault(_templateHbs);
-let currentProducts = [
+const container = document.querySelector('#products-container');
+const form = document.querySelector('#add-form');
+let list = [
     ...(0, _dataJs.products)
 ];
-const container = document.querySelector('#products-container');
-const addForm = document.querySelector('#add-form');
-function renderProducts() {
-    const markup = (0, _templateHbsDefault.default)(currentProducts);
-    container.innerHTML = markup;
+function render() {
+    container.innerHTML = (0, _templateHbsDefault.default)(list);
 }
-renderProducts();
-addForm.addEventListener('submit', (e)=>{
+render();
+form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const name = document.querySelector('#product-name').value;
-    const price = document.querySelector('#product-price').value;
-    const description = document.querySelector('#product-desc').value;
     const newProduct = {
         id: Date.now(),
-        name: name,
-        price: Number(price),
-        description: description
+        name: form.elements.name.value,
+        price: Number(form.elements.price.value),
+        description: form.elements.desc.value
     };
-    currentProducts.push(newProduct);
-    renderProducts();
-    addForm.reset();
+    list.push(newProduct);
+    render();
+    form.reset();
 });
 container.addEventListener('click', (e)=>{
-    if (e.target.classList.contains('delete-btn')) {
+    if (e.target.nodeName === 'BUTTON') {
         const idToDelete = Number(e.target.dataset.id);
-        currentProducts = currentProducts.filter((product)=>product.id !== idToDelete);
-        renderProducts();
+        list = list.filter((item)=>item.id !== idToDelete);
+        render();
     }
 });
 

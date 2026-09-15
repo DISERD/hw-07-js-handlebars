@@ -1,45 +1,37 @@
 import { products } from './data.js';
 import template from './template.hbs';
 
-let currentProducts = [...products];
-
 const container = document.querySelector('#products-container');
-const addForm = document.querySelector('#add-form');
+const form = document.querySelector('#add-form');
 
-function renderProducts() {
-  const markup = template(currentProducts);
-  container.innerHTML = markup;
+let list = [...products];
+
+function render() {
+  container.innerHTML = template(list);
 }
 
-renderProducts();
+render();
 
-addForm.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-
-  const name = document.querySelector('#product-name').value;
-  const price = document.querySelector('#product-price').value;
-  const description = document.querySelector('#product-desc').value;
 
   const newProduct = {
     id: Date.now(),
-    name: name,
-    price: Number(price),
-    description: description
+    name: form.elements.name.value,
+    price: Number(form.elements.price.value),
+    description: form.elements.desc.value,
   };
 
-  currentProducts.push(newProduct);
-
-  renderProducts();
-
-  addForm.reset();
+  list.push(newProduct);
+  render();
+  form.reset();
 });
 
 container.addEventListener('click', (e) => {
-  if (e.target.classList.contains('delete-btn')) {
+  if (e.target.nodeName === 'BUTTON') {
     const idToDelete = Number(e.target.dataset.id);
 
-    currentProducts = currentProducts.filter(product => product.id !== idToDelete);
-
-    renderProducts();
+    list = list.filter(item => item.id !== idToDelete);
+    render();
   }
 });
