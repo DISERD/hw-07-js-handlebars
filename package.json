@@ -1,25 +1,15 @@
 {
-  "name": "hw-07-js-handlebars",
+  "name": "handlebars-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DISERD/hw-07-js-handlebars.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/DISERD/hw-07-js-handlebars/issues"
-  },
-  "homepage": "https://github.com/DISERD/hw-07-js-handlebars#readme",
   "devDependencies": {
-    "parcel": "^2.16.4",
+    "parcel": "^2.12.0",
     "parcel-transformer-hbs": "^1.0.4"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8"
   }
 }
